@@ -10,38 +10,37 @@
 <body>
     <h1 style="color: white"> 100 Floors of Frights </h1>
 
-    <!-- Keep a point total in the corner
-
-    background image: 100 floors of fright 
-
-    Photo in the middle with Button to begin the game (SHARE?????)
-
-    -->
-   
-
     <h2 style="color: white">Click below to get started!</h2>
 
 <!-- Trigger/Open The Modal -->
-<button id="newGameBtn">New Game</button>
+<div>
+    <button id="newGameBtn">New Game</button>
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
+    <!-- <img id ="myImg" src="images/david-pumpkins.png" style="width:100%;max-width:300px"> -->
     <div class="modal-header">
       <span class="close">×</span>
-      <h2>WELCOME to 100 Floors of FRIGHTS!</h2>
     </div>
     <div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
+      
+        
+      <!-- <p>Some text in the Modal Body</p>
+      <p>Some other text...</p> -->
     </div>
-    <div class="modal-footer">
-      <h3>Modal Footer</h3>
-    </div>
+    <button class="close-button">OK</button>
   </div>
 
+</div>
+
+<div class="life-stats">
+  <div>
+      Score: <span>0</span>
+  </div>
 </div>
 
 <h2 style="color: white">Game Controls</h2>
@@ -49,6 +48,24 @@
 <!-- Trigger/Open The Modal -->
 <button id="rideBtn">Let's RIDE!</button>
 
+<div>
+<button id="getAdviceBtn">Talk to Mark</button>
+</div>
+
+<!-- This is the answer question quiz -->
+<div class="container" id=body.quiz>
+  <div id="question-container" class="hide">
+    <div id="question">Question</div>
+    <div id="answer-buttons" class="btn-grid">
+      <button class="answerBtn">Answer 1</button>
+      <button class="answerBtn">Answer 2</button>
+      <button class="answerBtn">Answer 3</button>
+    </div>
+  </div>
+  <div class="controls">
+    <button id="submit-btn" class="submit-btn btn">SUBMIT</button>
+  </div>
+</div>
 
 </body>
 </html>
