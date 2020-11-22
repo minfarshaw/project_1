@@ -1,12 +1,30 @@
+@font-face {
+  font-family: CFNightofTerror;
+  src: url("fonts/CFNightofTerrorPERSONAL-Reg.ttf");
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: Lato;
+  /* font-family: "CFNightofTerror"; */
 }
 
 body {
     background-image: url("100-Floors-of-Frights-Background.png");
     background-size: cover;
     background-repeat: no-repeat;
+    justify-content: center;
+}
+
+#newGameContainer {
+  text-align: center;
+}
+
+#newGameBtn {
+   font-weight: bold;
+   font-size: large;
+   padding: 10px 20px;
+   text-align: center;
+   background-color: red;
 }
 
 /* The Modal (background) */
@@ -30,7 +48,12 @@ body {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+
+  .modal-content img {
+    width: 100%;
+    padding: 20px;
   }
   
   /* The Close Button */
@@ -52,6 +75,7 @@ body {
     color: black;
     font-size: larger;
     font-weight: bold;
+    text-align: center;
   }
 
   .life-stats {
@@ -59,19 +83,51 @@ body {
       font-weight: bold;
       color: white;
       padding: 30px 0 0 0;
+      /* vertical-align: top; */
   }
 
- /* This is for the quiz */
 
- .body.quiz {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+ .answer-btn, .submit-btn {
+   font-size: large;
+   font-weight: bold;
+   padding: 10px 20px;
+   text-align: center;
+   background-color: orange;
+   
  }
+
+ button {
+   /* font-size: 1.5rem; */
+   font-weight: bold;
+   padding: 10px 20px;
+   text-align: center;
+   margin: 10px;
+   font-family: Lato;
+   border-radius: 5px;
+ }
+
+ #talkToMarkBtn {
+   font-size: large;
+   background-color: silver;
+   font-weight: bold;
+   padding: 10px 20px;
+   text-align: center;
+   margin: 10px;
+   font-family: Lato;
+   border-radius: 5px;
+ }
+
+ #rideBtn {
+  font-size: large;
+  background-color: green;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 10px;
+  font-family: Lato;
+  border-radius: 5px;
+ }
+
 
  .container {
    width: 500px;
@@ -84,5 +140,31 @@ body {
 
  .btn-grid {
    display: grid;
+   grid-template-columns: repeat(2, auto);
    margin: 20px 0;
+   gap: 10px;
  }
+
+ .btn:hover {
+  border-color: black;
+ }
+
+
+ h1 {
+   font-family: CFNightofTerror;
+   text-align: center;
+   padding-top: 50px;
+   font-size: 3rem;
+ }
+
+ h2 {
+  font-family: CFNightofTerror;
+  text-align: center;
+}
+
+#game-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Lato;
+}

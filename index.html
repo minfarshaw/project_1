@@ -8,13 +8,22 @@
     <title>100 Floors of Frights</title>
 </head>
 <body>
-    <h1 style="color: white"> 100 Floors of Frights </h1>
+  <div class="life-stats">
+    <div>
+      Score: <span>0</span>
+    </div>
+    <div>
+      Round: <span id="round">0</span>
+    </div>
+</div>
 
+    <h1 style="color: white"> 100 Floors of Frights </h1>
     <h2 style="color: white">Click below to get started!</h2>
 
-<!-- Trigger/Open The Modal -->
-<div>
-    <button id="newGameBtn">New Game</button>
+  
+    <!-- Trigger/Open The Modal -->
+<div id="newGameContainer">
+    <button id="newGameBtn">NEW GAME</button>
 </div>
 
 <!-- The Modal -->
@@ -22,50 +31,27 @@
 
   <!-- Modal content -->
   <div class="modal-content">
-    <!-- <img id ="myImg" src="images/david-pumpkins.png" style="width:100%;max-width:300px"> -->
     <div class="modal-header">
-      <span class="close">×</span>
+      <span id="close">X</span>
     </div>
     <div class="modal-body">
-      
-        
-      <!-- <p>Some text in the Modal Body</p>
-      <p>Some other text...</p> -->
     </div>
-    <button class="close-button">OK</button>
-  </div>
-
-</div>
-
-<div class="life-stats">
-  <div>
-      Score: <span>0</span>
+    <button id="closeBtn">OK</button>
   </div>
 </div>
+
 
 <h2 style="color: white">Game Controls</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="rideBtn">Let's RIDE!</button>
-
-<div>
-<button id="getAdviceBtn">Talk to Mark</button>
-</div>
+<div style="justify-content: center;"></div>
+  <div id="game-controls">
+    <button id="rideBtn">LET'S RIDE!</button>
+  <div>
+    <button id="talkToMarkBtn">TALK TO MARK</button>
+  </div>
 
 <!-- This is the answer question quiz -->
-<div class="container" id=body.quiz>
-  <div id="question-container" class="hide">
-    <div id="question">Question</div>
-    <div id="answer-buttons" class="btn-grid">
-      <button class="answerBtn">Answer 1</button>
-      <button class="answerBtn">Answer 2</button>
-      <button class="answerBtn">Answer 3</button>
-    </div>
-  </div>
-  <div class="controls">
-    <button id="submit-btn" class="submit-btn btn">SUBMIT</button>
-  </div>
-</div>
+  <button id="answer-btn" class="answer-btn btn">ANSWER A QUESTION</button>
 
+</div>
 </body>
 </html>
