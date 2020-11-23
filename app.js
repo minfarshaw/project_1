@@ -16,7 +16,6 @@ const newGameButton = document.getElementById("newGameBtn");
 const talkToMarkButton = document.getElementById("talkToMarkBtn");
 const answerButton = document.getElementById("answer-btn");
 const closeButton = document.getElementById("closeBtn");
-const startOverButton = document.getElementById("start-over");
 
 const roundContainer = document.getElementById("round")
 const scoreSpan = document.getElementById("score");
@@ -43,7 +42,10 @@ let mark_photo = "images/mark-2.png"
 
 let losing_image = "images/so-afraid.png";
 const winning_image = "images/winning-image";
-const YOU_WIN_MESSAGE = "You have made it through 100 Floors of FRIGHTS! YOU WIN!!! ANY QUESTIONS?";
+const YOU_WIN_MESSAGE = "<h1>You have made it through 100 Floors of FRIGHTS!</h1><br />"
+                        + "<h2>YOU WIN!!!</h2><br />"
+                        + "<h3>ANY QUESTIONS?</h3><br /><br />"
+                        + "<button onclick=\"starOver()\">Start Over</button>";
 const YOU_LOSE = "LOSER";
 
 let round = 1;
@@ -455,7 +457,7 @@ function floorArrival () {
     if(checkGameEnd() === YOU_WIN_MESSAGE || floor === null) {
         return YOU_WIN_MESSAGE;
     } else if(checkGameEnd() === YOU_LOSE) {
-        return "Oh no! David Pumpkins appeared right behind you!" + "<div id=\"losingImage\"><img src='" + losing_image + "' /></div>" + "You have FAINTED from FEAR, as we knew you would! Any questions?" 
+        return "Oh no! David Pumpkins appeared right behind you!" + "<div id=\"losingImage\"><img src='" + losing_image + "' /></div>" + "You have FAINTED from FEAR, as we knew you would!<br />Any questions?<br /><input id=\"startOverButton\" type=\"button\" value=\"Start Over\" onclick=\"startOver();\" />" 
     }
 
     addOrRemoveMrPumpkins();
@@ -465,10 +467,10 @@ function floorArrival () {
     if (floor !== davidPumpkins && floor !== surpriseRound) {
         firstPlayer.addPoints(floor.points);
 
-        let arrivalMessage =    "You have arrived at Floor " 
-                                + floor.floorNumber + "! " + "<br />" 
+        let arrivalMessage =    "<h2>You have arrived at Floor " 
+                                + floor.floorNumber + "! </h2>" 
                                 + floor.catchphrase 
-                                + " <img src='" + floor.image + "' />"
+                                + " <img src='" + floor.image + "' class=\"arrival-image\" />"
                                 + "You have earned " + floor.points + " points!";
         
         myFloors = myFloors.filter(f => f.name !== floor.name);
@@ -531,14 +533,18 @@ function addSurpriseRound () {
 }
 
 function startOver () {
-    document. location. reload(); 
+    document.location.reload(); 
 }
 
 /* ======================
 BUTTON ONCLICK FUNCTIONS
 =========================*/
 
-newGameButton.onclick = function newGameButtonClick() {
+newGameButton.onclick = function() {
+    startOver();
+}
+
+window.onload = function() {
     modal.style.display = "block";
     modalBody.innerHTML = "<h2>Welcome to 100 Floors of Frights!</h2>I'm Mark, your Hellevator Operator! Tonight you will be riding through 100 floors of TERRIFYING torment. You will face fears you might not be ready for! In order to win, you must make it through all 100 floors without fainting from fermenting fear! Making it successfully past a scary floor will earn you points, but confusion and dawdling will make you lose points!<br /><br /> However, if you are ever too afraid to go on, you can talk to me. I'll chat you up between floors, and you can answer some questions about what I told you to regain some points and keep going. You will start off with 10 points once you hop on the Hellevator! <br /><br /> You may think this will be easy, but beware, some of the frights may be more than you bargained for.</p>";
 }
