@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script defer src="app.js"></script>
-    <title>100 Floors of Frights</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+  <title>100 Floors of Frights</title>
 </head>
+
 <body>
+  
   <div class="life-stats">
     <div>
-      Score: <span>0</span>
+      Score: <span id="score">0</span>
     </div>
     <div>
       Round: <span id="round">0</span>
     </div>
-</div>
-
-    <h1 style="color: white"> 100 Floors of Frights </h1>
-    <h2 style="color: white">Click below to get started!</h2>
-
-  
-    <!-- Trigger/Open The Modal -->
-<div id="newGameContainer">
-    <button id="newGameBtn">NEW GAME</button>
-</div>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span id="close">X</span>
-    </div>
-    <div class="modal-body">
-    </div>
-    <button id="closeBtn">OK</button>
-  </div>
-</div>
-
-
-<h2 style="color: white">Game Controls</h2>
-<div style="justify-content: center;"></div>
-  <div id="game-controls">
-    <button id="rideBtn">LET'S RIDE!</button>
-  <div>
-    <button id="talkToMarkBtn">TALK TO MARK</button>
   </div>
 
-<!-- This is the answer question quiz -->
-  <button id="answer-btn" class="answer-btn btn">ANSWER A QUESTION</button>
+  <div id="game-controls-background">
+    
+      <h1 class="game-heading"> 100 Floors of Frights </h1>
+      <h2 class="game-heading">Click below to get started!</h2>
 
-</div>
+      <!-- Trigger/Open The Modal -->
+      <div id="newGameContainer">
+        <button id="newGameBtn">NEW GAME</button>
+      </div>
+
+
+      <h2 class="game-heading">Game Controls</h2>
+      <div style="justify-content: center;"></div>
+      <div id="game-controls">
+        <button id="rideBtn">LET'S RIDE!</button>
+        <div>
+          <button id="talkToMarkBtn">TALK TO MARK</button>
+        </div>
+
+        <!-- This is the answer question quiz -->
+        <button id="answer-btn" class="answer-btn btn">ANSWER A QUESTION</button>
+      </div>
+   
+  </div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="close">x</span>
+      </div>
+      <div class="modal-body">
+      </div>
+      <button id="closeBtn">OK</button>
+    </div>
+  </div>
+  <audio src="audio/Hows-It-Hangin.mp3" type="audio/wav" id="david-pumpkins-sound"></audio>
 </body>
+
 </html>

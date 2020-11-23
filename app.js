@@ -16,10 +16,14 @@ const newGameButton = document.getElementById("newGameBtn");
 const talkToMarkButton = document.getElementById("talkToMarkBtn");
 const answerButton = document.getElementById("answer-btn");
 const closeButton = document.getElementById("closeBtn");
+const startOverButton = document.getElementById("start-over");
 
 const roundContainer = document.getElementById("round")
-const currentStatsContainer = document.querySelector('.life-stats');
+const scoreSpan = document.getElementById("score");
 const questionText = document.getElementById("question");
+
+let audio = document.querySelector('#david-pumpkins-sound');
+
 
 
 /* ======================
@@ -27,17 +31,19 @@ GLOBAL VARS
 =========================*/
 
 const DAVID_PUMPKINS = "David S. Pumpkins";
-let DAVID_PUMPKINS_IMAGE = "images/dp-giphy.gif";   
+let DAVID_PUMPKINS_IMAGE = "images/dp-giphy.gif";
 let DAVID_PUMPKINS_CATCHPHRASE = "'How's it hangin'? I'm David Pumpkins, and I'm here to scare the HELL out of YOU! Any questions?'"
 
-let skeletons_image = "images/skeletons";
+let SKELETONS = "Skeletons";
+let skeletonAudio = "audio/Theme-Song.mp3";
+let skeletons_image = "images/skeletons.png";
 let skeletons_catchphrase = "Ready or not, here...we...dance?"
 
 let mark_photo = "images/mark-2.png"
 
-const losing_image = "images/so-afraid";
+let losing_image = "images/so-afraid.png";
 const winning_image = "images/winning-image";
-const YOU_WIN_MESSAGE = "You have made it through 100 Floors of FRIGHTS! YOU WIN!!!";
+const YOU_WIN_MESSAGE = "You have made it through 100 Floors of FRIGHTS! YOU WIN!!! ANY QUESTIONS?";
 const YOU_LOSE = "LOSER";
 
 let round = 1;
@@ -93,7 +99,7 @@ const initLoadList = [
         name: "Murder Hornets",
         points: 5,
         floorNumber: 17,
-        catchphrase: "'MURDER HORNETS?! Not today, Satan! Don't need anymore horrors this year, be gone!'"
+        catchphrase: "'MURDER HORNETS?! Not today, Satan!'"
     },
     {
         image: "images/woman-laughing.jpg",
@@ -242,6 +248,13 @@ const initQuestionList = [
     }
 ];
 
+const pumpkinsAudio = [
+    "audio/Hows-It-Hangin.mp3",
+    "audio/Im-David-Pumpkins.mp3",
+    "audio/Any-Questions.mp3",
+    "audio/Scare-the-Hell.mp3" 
+];
+
 /* ======================
 CLASS OBJECTS
 =========================*/
@@ -272,7 +285,8 @@ class Player {
     }
 
     updatePointsContainer() {
-        currentStatsContainer.innerHTML = `<div>Score: <span>${this.points}</span></div>`;
+        scoreSpan.innerText = this.points;
+        roundContainer.innerText = round;
     }
 }
 
@@ -333,6 +347,19 @@ class Question {
 FUNCTIONS
 ============================= */
 
+function getPumpkinAudio() {
+    let max = pumpkinsAudio.length;
+
+    if (max === 0) {
+        return null;
+    }
+
+    let randomNumber = Math.floor(Math.random() * (max - 1) + 1);
+
+    return pumpkinsAudio[randomNumber - 1];
+
+}
+
 function getFloor() {
     let max = myFloors.length;
 
@@ -362,22 +389,22 @@ function getQuestion() {
 function checkAnswer(guess) {
     if(guess === currentQuestion.answer) {
         // do correct answer action
-        modalBody.innerText = "CORRECT!";
+        modalBody.innerText = "CORRECT! You earned 5 points!";
         firstPlayer.addPoints(5);
     } else {
-        modalBody.innerText = "WRONG!"; 
+        modalBody.innerText = "WRONG! You weren't even listening to me?!"; 
     }
 
     myQuestions = myQuestions.filter(q => q.answer !== guess);
 }
 
 function talkToMark() {
-
-    const randomNumber = Math.floor(Math.random() * Math.floor(advice.length-1));
-    // console.log(randomNumber);
-    // Set my function to pull from the array of objects
-    return advice[randomNumber] + " <img src='" + mark_photo + "' />";
     
+    const randomNumber = Math.floor(Math.random() * Math.floor(advice.length-1));
+    let marksMessage = "<div id=\"markImage\"><img src='" + mark_photo + "' /></div>"
+                        + "<div class=\"markAdvice\">Mark: " + advice[randomNumber] + "</div>";
+                            
+    return marksMessage;
 }
 
 function getQuestions() {
@@ -428,29 +455,41 @@ function floorArrival () {
     if(checkGameEnd() === YOU_WIN_MESSAGE || floor === null) {
         return YOU_WIN_MESSAGE;
     } else if(checkGameEnd() === YOU_LOSE) {
-        return "You have " + firstPlayer.points + " hitpoints! You have FAINTED from FEAR, as we knew you would! Any questions?"
+        return "Oh no! David Pumpkins appeared right behind you!" + "<div id=\"losingImage\"><img src='" + losing_image + "' /></div>" + "You have FAINTED from FEAR, as we knew you would! Any questions?" 
     }
 
     addOrRemoveMrPumpkins();
     addSurpriseRound();
     console.log("Current # of David S. Pumpkins: " + getPercentageOfDP() + "%");
 
-    if (floor !== davidPumpkins) {
+    if (floor !== davidPumpkins && floor !== surpriseRound) {
         firstPlayer.addPoints(floor.points);
 
-        let arrivalMessage = "You have arrived at Floor " + 
-                                floor.floorNumber + " . " + 
-                                floor.catchphrase + 
-                                " <img src='" + floor.image + "' />" +
-                                "You have earned " + floor.points + " points!";
+        let arrivalMessage =    "You have arrived at Floor " 
+                                + floor.floorNumber + "! " + "<br />" 
+                                + floor.catchphrase 
+                                + " <img src='" + floor.image + "' />"
+                                + "You have earned " + floor.points + " points!";
         
         myFloors = myFloors.filter(f => f.name !== floor.name);
 
         return arrivalMessage;
         
+    } else if (floor === surpriseRound) { 
+        audio.src = skeletonAudio;
+        firstPlayer.removePoints(floor.points);
+        audio.play(); 
+
+        return  "OH NOOOOO! You have arrived at Floor " + 
+                    floor.floorNumber + " . " + 
+                    floor.catchphrase + " " + 
+                    ". <img src='" + floor.image + "'>" +
+                    " You have LOST " + floor.points + " points!";
     } else {
-            firstPlayer.removePoints(5);
-            
+            audio.src = getPumpkinAudio();
+            firstPlayer.removePoints(floor.points);
+            audio.play(); 
+
             return "OH NOOOOO! You have arrived at Floor " + 
                     floor.floorNumber + " . " + 
                     floor.catchphrase + " " + 
@@ -486,12 +525,14 @@ function checkGameEnd () {
 }
 
 function addSurpriseRound () {
-    if (round >= 20) {
-        let surpriseRound = new Floor(666, "Skeletons", -50, skeletons_image, skeletons_catchphrase);
+    if (round >= 10) {
         myFloors.push(surpriseRound);
     }
 }
 
+function startOver () {
+    document. location. reload(); 
+}
 
 /* ======================
 BUTTON ONCLICK FUNCTIONS
@@ -499,7 +540,7 @@ BUTTON ONCLICK FUNCTIONS
 
 newGameButton.onclick = function newGameButtonClick() {
     modal.style.display = "block";
-    modalBody.innerHTML = "<h1>Welcome to 100 Floors of Frights!</h1><p>Here are the basic rules</p>";
+    modalBody.innerHTML = "<h2>Welcome to 100 Floors of Frights!</h2>I'm Mark, your Hellevator Operator! Tonight you will be riding through 100 floors of TERRIFYING torment. You will face fears you might not be ready for! In order to win, you must make it through all 100 floors without fainting from fermenting fear! Making it successfully past a scary floor will earn you points, but confusion and dawdling will make you lose points!<br /><br /> However, if you are ever too afraid to go on, you can talk to me. I'll chat you up between floors, and you can answer some questions about what I told you to regain some points and keep going. You will start off with 10 points once you hop on the Hellevator! <br /><br /> You may think this will be easy, but beware, some of the frights may be more than you bargained for.</p>";
 }
 
 rideButton.onclick = function rideButtonClick() {
@@ -510,7 +551,7 @@ rideButton.onclick = function rideButtonClick() {
 
 talkToMarkButton.onclick = function talkToMarkButtonClick() {
     modal.style.display = "block";
-    modalBody.innerText = "Mark: " + talkToMark();
+    modalBody.innerHTML =  talkToMark(); 
 }
 
 answerButton.onclick = function getAnswerButtonClick() {
@@ -542,6 +583,8 @@ ONLOAD
 
 let firstPlayer = new Player("Spooper",10);
 let davidPumpkins = new Floor(10, DAVID_PUMPKINS, 5, DAVID_PUMPKINS_IMAGE, DAVID_PUMPKINS_CATCHPHRASE);
+let marksFloor = new Floor("Lobby", "Mark", 0, mark_photo);
+let surpriseRound = new Floor(666, SKELETONS, 25, skeletons_image, skeletons_catchphrase);
 
 populateMyFloors();
 populateMyQuestions();
