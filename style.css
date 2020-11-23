@@ -44,7 +44,7 @@ body {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     box-shadow: 20px;
-    overflow: none; /* Enable scroll if needed */
+    /* overflow: auto; */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
@@ -80,7 +80,7 @@ body {
 
   .modal-body {
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     padding: 10px;
     font-family: Lato;
@@ -178,6 +178,10 @@ body {
   font-family: CFNightofTerror;
   text-align: center;
   color: white; 
+}
+
+p {
+
 }
 
 .game-heading {
