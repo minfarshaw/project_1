@@ -240,7 +240,7 @@ const initQuestionList = [
             }
     },
     {
-        question: "What did this hotel used to be?",
+        question: "What was this building before it became a hotel?",
         answer: "A hospital for radioactive Covid-19 patients",
         wrong: {
                 first: "A highrise apartment building for superhero photographers",
